@@ -1,0 +1,21 @@
+#video {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: -1;
+    overflow: hidden;
+}
+
+ol{font-size: 1.5em;}
+ol { color:aliceblue; }
+   
+a:link { color: aliceblue; }
+a:visited { color:aliceblue; }
+
+p {
+    color: aliceblue;
+}

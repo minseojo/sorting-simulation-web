@@ -1,0 +1,103 @@
+
+
+.body { background-color: rgb(145,168,210);}
+
+canvas {
+    background: ghostwhite; 
+    display: inline-block; 
+    position:absolute;
+    top: 25%;
+    left: 27%;
+    border: 1px solid #34495e; } 
+
+.file_input_textbox {
+    background-color: ghostwhite;
+    border: 2px solid #34495e;
+    padding: 10px 0px;
+    color: #34495e;
+    text-align: center;
+    width: 200px;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    position: absolute;
+    cursor: pointer;
+    outline: none;}
+
+.file_input_div {position: absolute; top:71%; left: 41.3%; width:300px; height:150px; overflow:hidden;}
+
+.file_input_hidden {font-size:18px; position:absolute; right:5px; top:5px; opacity:0; 
+filter: alpha(opacity=0); -ms-filter: alpha(opacity=0); cursor:pointer;}
+
+.button-1{
+    background-color: ghostwhite;
+    width:100px;
+    height:42px;
+    border:2px solid #34495e;
+    text-align:center;
+    cursor:pointer;
+    position:absolute;
+    box-sizing:border-box;
+    overflow:hidden;
+    border-radius: 6px;
+    margin:0 0 40px 0;}
+    
+.button-1 a{
+    font-family:arial;
+    font-size:16px;
+    color:#34495e;
+    text-decoration:none;
+    line-height:42px;
+    transition:all .5s ease;
+    z-index:2;
+    position:relative;}
+
+.eff-1{
+    width:100px;
+    height:42px;
+    top:-2px;
+    right:-100px;
+    background:#34495e;
+    position:absolute;
+    transition:all .5s ease;
+    z-index:1;}
+.button-1:hover .eff-1{
+    right:0;}
+.button-1:hover a{
+    color:#fff;}
+
+.sorting_algorithms_content {
+    background: #fffffc;
+    border: 1px solid #eee;
+    border-radius: 3px;
+    display: inline-block;
+    font-family:arial;
+    font-size: .9em;
+    line-height: 1.5em;
+    max-width: 100%;
+    padding: 20px;
+}    
+
+.h-container:after{ clear: both; display: block; content: '' }
+.h-container .item {
+    float: left;
+    width: 100px;
+    text-align: center;
+    border-right: 1px solid #ddd;
+}
+.h-container .item.last {
+    float: right;
+    border-right: none;
+}
+
+.nexth {
+    width: 400px;
+    height: 202px;
+    color: rgba(17, 57, 133, 0.699);
+    text-align: center;
+    padding: 4px 12px;
+    font-size: 16px;
+    font-family:arial;
+    border-radius: 3px;
+    border: 1px dotted #0f356b;
+}

@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Bubble-Sort</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href ="style.css">
+    <style>
+        
+ol { 
+    font-size: 20px;
+    text-align: right;
+    position: absolute;
+    top:80%;
+    left:20%;
+}
+a { text-decoration:none;} 
+a:link { color:#4875b4; font-size: 12px;}
+a:visited { color:#4875b4;
+font-size: 12px;}
+    </style>
+</head>
+<body style="background-color: white;">
+
+    <div style="border-bottom: 1px solid rgb(114, 110, 110); width: 95%; padding: 30px;"> </div>
+
+    <h1 style="color:#3863a0;; text-align-last: center; margin-top: 30px; margin-right: 20px;">Merge Sort</h1>
+   
+    <h3 style="color: #3863a0; margin-left: 30px; font-family:arial; position: absolute; top:16%; left:0%;">ALGORITHM</h3>
+    <span class="sorting_algorithms_content" style="font-size: 15px; position: absolute; top:23%; left:2%; ">
+        # split in half<br>
+        m = n / 2<br>
+        <br>
+        # recursive sorts<br>
+        sort a[1..m]<br>
+        sort a[m+1..n]<br>
+        <br>
+        # merge sorted sub-arrays using temp array<br>
+        b = copy of a[1..m]<br>
+        i = 1, j = m+1, k = 1<br>
+        while i <= m and j <= n,<br>
+        &nbsp;  &nbsp;   a[k++] = (a[j] < b[i]) ? a[j++] : b[i++]<br>
+        &nbsp;  &nbsp;      → invariant: a[1..k] in final position<br>
+        while i <= m,<br>
+        &nbsp;  &nbsp;      a[k++] = b[i++]<br>
+        &nbsp;  &nbsp;      → invariant: a[1..k] in final position<br>
+        end
+    </span>
+    <canvas id="myCanvas" width="460" height="200"></canvas>
+    <h3 style="color: #3863a0; margin-left: 30px; font-family:arial; position:absolute; top:16%; left:69.5%;">DISCUSSION</h3>
+    <span class="sorting_algorithms_content" style="font-size: 15px; position:absolute; top:23%; left:71.5%; width: 350px;">
+        Merge sort is very predictable. It makes between 0.5lg(n) and lg(n) comparisons per element, and between lg(n) and 1.5lg(n) swaps per element. The minima are achieved for already sorted data; the maxima are achieved, on average, for random data. If using Θ(n) extra space is of no concern, then merge sort is an excellent choice: It is simple to implement, and it is the only stable O(n·lg(n)) sorting algorithm. Note that when sorting linked lists, merge sort requires only Θ(lg(n)) extra space (for recursion).
+    </span>
+
+    <h3 style="color: #3863a0; margin-left: 30px; font-family:arial; position:absolute; top:65%; left:69.5%;">PROPERTIES</h3>
+    <span class="sorting_algorithms_content" style="font-size: 15px; position:absolute; top:72%; left:71.5%">
+        • Stable<br>
+        • Θ(n) extra space for arrays (as shown)<br>
+        • Θ(lg(n)) extra space for linked lists<br>
+        • Θ(n·lg(n)) time<br>
+        • Not adaptive <br>
+        • Does not require random access to data
+    </span>
+<!-- 오픈 -->
+    <div class="file_input_div">
+        <div class="button-1">
+            <a href="#" style="color: #3863a0;"> <b>Open</b></a>
+        	<input type="file" name="file_1" id="selectFile" class="file_input_hidden" accept="text/plain" id="selectFile" onclick="textFile()" />
+        </div>
+    </div>	
+<!-- 텍스트창 -->
+    <input style="top:70.5%; left:48.3%; border-radius: 4px;" type="text" id="fileName" class="file_input_textbox" readonly >
+<!--이용방법  -->
+<div class="button-1" style="top:71%; left: 34.3%;" onclick="alert('1)\n\'\'\'.txt파일에 숫자 공백 순으로 작성 ex) 1 5 2 4 3 \nOpen -> Sorting -> Save\n\n2)\nRandom, Nearly Sorted, Reversed중 택1 -> sorting -> save')">
+        <a href="#" style="color: #3863a0;"> <b>How to use</b></a>
+    </div>
+<!-- 정렬 -->
+    <div class="button-1" style="top:78%; left: 53%;" onclick="sortStart()">
+        <div class="eff-1"></div>
+        <a href="#" style="color: #3863a0;"> <b>Sorting</b></a>
+    </div>
+<!--저장  -->
+    <div class="button-1" style="top:78%; left: 60%;" onclick="saveToFile_Chrome('result.txt', array)">
+        <div class="eff-1"></div>
+        <a href="#" style="color: #3863a0;" ><b>Save</b></a>
+    </div>
+
+<!--랜덤숫자  -->
+    <div class="button-1" style="top:78%; left: 29.3%;" onclick="randomArray()">
+        <div class="eff-1"></div>
+        <a href="#" style="color: #3863a0;"> <b>Random</b></a>
+    </div>
+
+    <div class="button-1" style="top:78%; left: 36.3%; width: 140px;" onclick="nearlySortedArray()">
+        <div class="eff-1"></div>
+        <a href="#" style="color: #3863a0;"> <b>Nearly Sorted</b></a>
+    </div>
+    
+    <div class="button-1" style="top:78%; left: 46%;" onclick="reverseArray()">
+        <div class="eff-1"></div>
+        <a href="#" style="color: #3863a0;" ><b>Reversed</b></a>
+    </div>
+
+    <h5 style="color: #3863a0; margin-left: 30px; font-family:arial; position:absolute; top:88.5%; left:27%; ">ALGORITHM: </h5>
+    <div class="h-container" style="position: absolute; top: 94.5%; left: 29%;">
+        <strong><a class="nexth" href="Bubble.html">Bubble</a></strong>
+        <strong><a class="nexth" href="Selection.html">Selection</a></strong>
+        <strong><a class="nexth" href="Insertion.html">Insertion</a></strong>
+        <strong><a class="nexth" href="Merge.html">Merge</a></strong>
+        <strong><a class="nexth" href="Heap.html">Heap</a></strong>
+        <strong><a class="nexth" href="Quick.html">Quick</a></strong>
+        <strong><a class="nexth" href="Count.html">Count</a></strong>
+        <strong><a class="nexth" href="Radix.html">Radix</a></strong>
+    </div>
+
+    <script>  
+        var array=[];
+
+        function randomArray() {
+            array=[];
+            for(let i=0; i<100; i++) {
+                var random = Math.floor(Math.random() * 101);
+                array.push(random);
+            }
+            draw(array); 
+        }
+        function nearlySortedArray() {
+            array=[];
+            let tmpArray=[];
+            for(let i=0; i<100; i++) {
+                array[i] = i;
+            }
+            let tmp=array[3]; array[3]=array[6]; array[6]=tmp;
+            tmp=array[7]; array[7]=array[15]; array[15]=tmp;
+            tmp=array[12]; array[12]=array[17]; array[17]=tmp;
+            tmp=array[57]; array[57]=array[43]; array[43]=tmp;
+            tmp=array[26]; array[26]=array[38]; array[38]=tmp;
+            tmp=array[93]; array[93]=array[76]; array[76]=tmp;
+            tmp=array[78]; array[78]=array[64]; array[64]=tmp;
+            tmp=array[49]; array[49]=array[66]; array[66]=tmp;
+            tmp=array[34]; array[34]=array[57]; array[57]=tmp;
+            tmp=array[87]; array[87]=array[99]; array[99]=tmp;
+            draw(array); 
+        }
+        function reverseArray() {
+            array=[];
+            for(let i=0; i<100; i++) {
+                array.push(100-i);
+            }
+            draw(array); 
+        }
+
+        function textFile(fileName) {
+            document.getElementById('selectFile').onchange = function(e) {
+                var file = e.target.files[0];
+                document.getElementById('fileName').value = file.name;
+                //파일 읽기
+                var reader = new FileReader();
+                reader.readAsText(file);
+                //파일 읽기 성공시
+                reader.onload = function(e) {
+                    var textData = reader.result;
+                    array = textData.split(" ");  // array배열에 공백 기준으로 삽입
+                   
+                    //정수형으로 변환
+                    for(var i=0; i<array.length; i++) {
+                        array[i] = Number(array[i]);
+                    }
+                    draw(array);
+                }
+            }
+        }
+
+        function saveToFile_Chrome(fileName, content) {
+            var blob = new Blob([content], { type: 'text/plain' });
+            objURL = window.URL.createObjectURL(blob);
+                    
+            // 이전에 생성된 메모리 해제
+            if (window.__Xr_objURL_forCreatingFile__) {
+                window.URL.revokeObjectURL(window.__Xr_objURL_forCreatingFile__);
+            }
+            window.__Xr_objURL_forCreatingFile__ = objURL;
+            var a = document.createElement('a');
+            a.download = fileName;
+            a.href = objURL;
+            a.click();
+        }
+
+        // canvas
+        var CANVAS_WIDTH = window.innerWidth;
+        var CANVAS_HEIGHT = window.innerHeight;
+
+        var canvas = document.querySelector('canvas')
+        var context = canvas.getContext('2d');
+
+        canvas.width = CANVAS_WIDTH;
+        canvas.height = CANVAS_HEIGHT;
+            
+        var _canvas = document.querySelector("#myCanvas");
+        _canvas.width = 640;
+        _canvas.height = 300;
+
+        function draw(array){
+            context.save();
+            context.clearRect(0, 0, canvas.width, canvas.height);
+            context.strokeStyle = 'white';
+            context.beginPath();
+            context.moveTo(0, canvas.height-100);
+            context.lineTo(canvas.width, canvas.height-100);
+            context.stroke();
+            context.restore();
+            context.fillStyle = 'black';
+            for(let i = 0; i < array.length; i++){
+                context.fillRect(20+6*i,canvas.height-1, 5, -2.7 * array[i]);
+            }
+        }
+
+
+        function sortStart() {
+            function mergeSort(array, n) {
+                if (n <1) return array;
+                middleIndex = Math.floor(n / 2); 
+                left = array.slice(0, middleIndex);
+                right = array.slice(middleIndex);
+                setTimeout(function() {
+                    return merge(mergeSort(left, left.length), mergeSort(right, right.length));
+                },50);
+            }
+
+            function merge(left, right) {
+                result = [];
+                while (left.length !== 0 && right.length !== 0) {
+                    left[0] <= right[0] ? result.push(left.shift()) : result.push(right.shift());	
+                    draw(result);
+                }
+
+
+
+                return [...result, ...left, ...right];
+            }
+
+            mergeSort(array, 100);
+        }
+    </script>
+    <br><br><br><br><br>
+    <h3><a style="font-size: 18px; color: #0d0a33; position: absolute; top: 11%; margin-left:10px;" href="home.html"> Home </a></h3>
+</body=>

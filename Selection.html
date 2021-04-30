@@ -3,28 +3,229 @@
 <head>
     <title>Bubble-Sort</title>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href ="1.css">
-</head>
-
-<body>
-    <h1 style="color: aliceblue;">선택 정렬(Selection Sort)</h1>
-    <img src = "2.jpg">
-    <h3 style="color: aliceblue;">시간 복잡도: O(n²)</h3>
-    
-    <h3 style="color: aliceblue;">선택 정렬을 실행했을 때 나오는 그림.</h3>
-    <p>
-    버블 정렬이 비교하고 바로 바꿔 넣는 걸 반복한다면 이쪽은 일단 1번째부터 끝까지 훑어서 가장 작은 게 1번째, 2번째부터 끝까지 훑어서 가장 작은 게 2번째……해서 (n-1)번 반복한다. 어찌 보면 인간이 사용하는 정렬 방식을 가장 많이 닮았다. 어떻게 정렬이 되어 있든 일관성 있게 \displaystyle \frac{n(n-1)}{2} 
-    2
-    n(n−1)
-    ​	
-     에 비례하는 시간이 걸린다는 게 특징. 또한, 버블 정렬보다 두 배 정도 빠르다
-    
-    파생형으로 이중 선택 정렬(Double Selection Sort)도 있다. 이 쪽은 끝까지 훑어서 최솟값과 최댓값을 동시에 찾아낸 뒤 최솟값은 1번째와 바꾸고 최댓값은 끝과 바꾼 다음 훑는 범위를 양쪽으로 한 칸씩 줄여서 반복하는 방식이다. 즉 선택 정렬에 칵테일 정렬 방식을 도입한 것. 이 방법을 쓰면 반복 횟수가 반으로 줄어든다.
-    </p>
-    
-    <video id="video" preload="auto" autoplay="true" loop="loop" muted="muted" volume="0">
-        <source src="s4.mp4">
-    </video>
-    <h3><a href="tag.html">뒤로가기</a></h3>
+    <link rel="stylesheet" href ="style.css">
+    <style>
         
-</body>
+ol { 
+    font-size: 20px;
+    text-align: right;
+    position: absolute;
+    top:80%;
+    left:20%;
+}
+a { text-decoration:none;} 
+a:link { color:#4875b4; font-size: 12px;}
+a:visited { color:#4875b4;
+font-size: 12px;}
+    </style>
+</head>
+<body style="background-color: white;">
+
+    <div style="border-bottom: 1px solid rgb(114, 110, 110); width: 95%; padding: 30px;"> </div>
+
+    <h1 style="color:#3863a0;; text-align-last: center; margin-top: 30px; margin-right: 20px;">Selection Sort</h1>
+   
+    <h3 style="color: #3863a0; margin-left: 30px; font-family:arial; position: absolute; top:21%; left:0%;">ALGORITHM</h3>
+    <span class="sorting_algorithms_content" style="font-size: 15px; position: absolute; top:29%; left:2%; ">
+        for i = 1:n,<br>
+        &nbsp;  &nbsp; k = i<br>
+        &nbsp;  &nbsp; for j = i+1:n, if a[j] < a[k], k = j<br>
+        &nbsp;  &nbsp;  → invariant: a[k] smallest of a[i..n]<br>
+        &nbsp;  &nbsp; swap a[i,k]<br>
+        &nbsp;  &nbsp; → invariant: a[1..i] in final position<br>
+    end
+    </span>
+    <canvas id="myCanvas" width="460" height="200"></canvas>
+    <h3 style="color: #3863a0; margin-left: 30px; font-family:arial; position:absolute; top:21%; left:69.5%;">DISCUSSION</h3>
+    <span class="sorting_algorithms_content" style="font-size: 15px;  position:absolute; top:29%; left:71.5%; width: 350px;">
+        From the comparions presented here, one might conclude that selection sort should never be used. It does not adapt to the data in any way (notice that the four animations above run in lock step), so its runtime is always quadratic.
+
+        However, selection sort has the property of minimizing the number of swaps. In applications where the cost of swapping items is high, selection sort very well may be the algorithm of choice.
+    </span>
+
+    <h3 style="color: #3863a0; margin-left: 30px; font-family:arial; position:absolute; top:65%; left:69.5%;">PROPERTIES</h3>
+    <span class="sorting_algorithms_content" style="font-size: 15px;  position:absolute; top:72%; left:71.5%">
+        • Not stable<br>
+        • O(1) extra space<br>
+        • Θ(n2) comparisons<br>
+        • Θ(n) swaps<br>
+        • Not adaptive<br>
+    </span>
+<!-- 오픈 -->
+    <div class="file_input_div">
+        <div class="button-1">
+            <a href="#" style="color: #3863a0;"> <b>Open</b></a>
+        	<input type="file" name="file_1" id="selectFile" class="file_input_hidden" accept="text/plain" id="selectFile" onclick="textFile()" />
+        </div>
+    </div>	
+<!-- 텍스트창 -->
+    <input style="top:70.5%; left:48.3%; border-radius: 4px;" type="text" id="fileName" class="file_input_textbox" readonly >
+<!--이용방법  -->
+<div class="button-1" style="top:71%; left: 34.3%;" onclick="alert('1)\n\'\'\'.txt파일에 숫자 공백 순으로 작성 ex) 1 5 2 4 3 \nOpen -> Sorting -> Save\n\n2)\nRandom, Nearly Sorted, Reversed중 택1 -> sorting -> save')">
+        <a href="#" style="color: #3863a0;"> <b>How to use</b></a>
+    </div>
+<!-- 정렬 -->
+    <div class="button-1" style="top:78%; left: 53%;" onclick="sortStart()">
+        <div class="eff-1"></div>
+        <a href="#" style="color: #3863a0;"> <b>Sorting</b></a>
+    </div>
+<!--저장  -->
+    <div class="button-1" style="top:78%; left: 60%;" onclick="saveToFile_Chrome('result.txt', array)">
+        <div class="eff-1"></div>
+        <a href="#" style="color: #3863a0;" ><b>Save</b></a>
+    </div>
+
+<!--랜덤숫자  -->
+    <div class="button-1" style="top:78%; left: 29.3%;" onclick="randomArray()">
+        <div class="eff-1"></div>
+        <a href="#" style="color: #3863a0;"> <b>Random</b></a>
+    </div>
+
+    <div class="button-1" style="top:78%; left: 36.3%; width: 140px;" onclick="nearlySortedArray()">
+        <div class="eff-1"></div>
+        <a href="#" style="color: #3863a0;"> <b>Nearly Sorted</b></a>
+    </div>
+    
+    <div class="button-1" style="top:78%; left: 46%;" onclick="reverseArray()">
+        <div class="eff-1"></div>
+        <a href="#" style="color: #3863a0;" ><b>Reversed</b></a>
+    </div>
+
+    <h5 style="color: #3863a0; margin-left: 30px; font-family:arial; position:absolute; top:88.5%; left:27%; ">ALGORITHM: </h5>
+    <div class="h-container" style="position: absolute; top: 94.5%; left: 29%;">
+        <strong><a class="nexth" href="Bubble.html">Bubble</a></strong>
+        <strong><a class="nexth" href="Selection.html">Selection</a></strong>
+        <strong><a class="nexth" href="Insertion.html">Insertion</a></strong>
+        <strong><a class="nexth" href="Merge.html">Merge</a></strong>
+        <strong><a class="nexth" href="Heap.html">Heap</a></strong>
+        <strong><a class="nexth" href="Quick.html">Quick</a></strong>
+        <strong><a class="nexth" href="Count.html">Count</a></strong>
+        <strong><a class="nexth" href="Radix.html">Radix</a></strong>
+    </div>
+
+    <script>  
+        var array=[];
+
+        function randomArray() {
+            array=[];
+            for(let i=0; i<100; i++) {
+                var random = Math.floor(Math.random() * 101);
+                array.push(random);
+            }
+            draw(array); 
+        }
+        function nearlySortedArray() {
+            array=[];
+            let tmpArray=[];
+            for(let i=0; i<100; i++) {
+                array[i] = i;
+            }
+            let tmp=array[3]; array[3]=array[6]; array[6]=tmp;
+            tmp=array[7]; array[7]=array[15]; array[15]=tmp;
+            tmp=array[12]; array[12]=array[17]; array[17]=tmp;
+            tmp=array[57]; array[57]=array[43]; array[43]=tmp;
+            tmp=array[26]; array[26]=array[38]; array[38]=tmp;
+            tmp=array[93]; array[93]=array[76]; array[76]=tmp;
+            tmp=array[78]; array[78]=array[64]; array[64]=tmp;
+            tmp=array[49]; array[49]=array[66]; array[66]=tmp;
+            tmp=array[34]; array[34]=array[57]; array[57]=tmp;
+            tmp=array[87]; array[87]=array[99]; array[99]=tmp;
+            draw(array); 
+        }
+        function reverseArray() {
+            array=[];
+            for(let i=0; i<100; i++) {
+                array.push(100-i);
+            }
+            draw(array); 
+        }
+
+        function textFile(fileName) {
+            document.getElementById('selectFile').onchange = function(e) {
+                var file = e.target.files[0];
+                document.getElementById('fileName').value = file.name;
+                //파일 읽기
+                var reader = new FileReader();
+                reader.readAsText(file);
+                //파일 읽기 성공시
+                reader.onload = function(e) {
+                    var textData = reader.result;
+                    array = textData.split(" ");  // array배열에 공백 기준으로 삽입
+                   
+                    //정수형으로 변환
+                    for(var i=0; i<array.length; i++) {
+                        array[i] = Number(array[i]);
+                    }
+                    draw(array);
+                }
+            }
+        }
+
+        function saveToFile_Chrome(fileName, content) {
+            var blob = new Blob([content], { type: 'text/plain' });
+            objURL = window.URL.createObjectURL(blob);
+                    
+            // 이전에 생성된 메모리 해제
+            if (window.__Xr_objURL_forCreatingFile__) {
+                window.URL.revokeObjectURL(window.__Xr_objURL_forCreatingFile__);
+            }
+            window.__Xr_objURL_forCreatingFile__ = objURL;
+            var a = document.createElement('a');
+            a.download = fileName;
+            a.href = objURL;
+            a.click();
+        }
+
+        // canvas
+        var CANVAS_WIDTH = window.innerWidth;
+        var CANVAS_HEIGHT = window.innerHeight;
+
+        var canvas = document.querySelector('canvas')
+        var context = canvas.getContext('2d');
+
+        canvas.width = CANVAS_WIDTH;
+        canvas.height = CANVAS_HEIGHT;
+            
+        var _canvas = document.querySelector("#myCanvas");
+        _canvas.width = 640;
+        _canvas.height = 300;
+
+        function draw(array){
+                context.save();
+                context.clearRect(0, 0, canvas.width, canvas.height);
+                context.strokeStyle = 'white';
+                context.beginPath();
+                context.moveTo(0, canvas.height-100);
+                context.lineTo(canvas.width, canvas.height-100);
+                context.stroke();
+                context.restore();
+                context.fillStyle = 'black';
+                for(let i = 0; i < array.length; i++){
+                    context.fillRect(20+6*i,canvas.height-1, 5, -2.7 * array[i]);
+                }
+        }
+
+        function sortStart() {
+            function selectSort(arr, n) {
+                var maxValue=0, index;
+                if(n === 0) {return arr;}
+                for (let i = 0; i <= n; i++) { 
+                    if(maxValue < arr[i]){
+                            index = i;
+                        maxValue = arr[i];
+                    }
+                }
+                arr[index] = arr[n];
+                arr[n] = maxValue;
+                draw(array);
+                setTimeout(function() {
+                        return selectSort(arr, n-1);
+                },50);
+            }
+            selectSort(array, 100);
+        }
+
+    </script>
+    <br><br><br><br><br>
+    <h3><a style="font-size: 18px; color: #0d0a33; position: absolute; top: 11%; margin-left:10px;" href="home.html"> Home </a></h3>
+</body=>

@@ -3,35 +3,225 @@
 <head>
     <title>Bubble-Sort</title>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href ="1.css">
+    <link rel="stylesheet" href ="style.css">
+    <style>
+        
+ol { 
+    font-size: 20px;
+    text-align: right;
+    position: absolute;
+    top:80%;
+    left:20%;
+}
+a { text-decoration:none;} 
+a:link { color:#4875b4; font-size: 12px;}
+a:visited { color:#4875b4;
+font-size: 12px;}
+    </style>
 </head>
+<body style="background-color: white;">
 
-<body>
-    <h1 style="color: aliceblue;">삽입 정렬(Insertion Sort)</h1>
-    <img src = "2.jpg">
-    <h3 style="color: aliceblue;">시간 복잡도: O(n²)</h3>
-    <h3 style="color: aliceblue;">삽입 정렬을 실행했을 때 나오는 그림.</h3>
+    <div style="border-bottom: 1px solid rgb(114, 110, 110); width: 95%; padding: 30px;"> </div>
 
-    <p>
-        삽입 정렬을 알기 쉽게 만든 그림. 선택 정렬과 함께 인간에게 뭔가를 정렬하라고 하면 무의식적으로 사용하는 대표적인 알고리즘이다.
-    
-        k번째 원소를 1부터 k-1까지와 비교해 적절한 위치에 끼워넣고 그 뒤의 자료를 한 칸씩 뒤로 밀어내는 방식으로, 평균적으론 \mathcal{O}(n^2)O(n 
-        2
-         )중 빠른 편이나[15] 자료구조에 따라선 뒤로 밀어내는데 걸리는 시간이 크며, 앞의 예시처럼 작은 게 뒤쪽에 몰려있으면(내림차순의 경우 큰 게 뒤쪽에 몰려있으면) 그야말로 헬게이트다.
-        다만 이미 정렬되어 있는 자료구조에 자료를 하나씩 삽입/제거하는 경우에는 현실적으로 최고의 정렬 알고리즘이 되는데, 탐색을 제외한 오버헤드가 매우 적기 때문이다. 괜히 '삽입'이란 이름이 붙은 것이 아니다.
-        
-        그밖에도 배열이 작을 경우에 역시 상당히 효율적이다. 일반적으로 빠르다고 알려진 알고리즘들도 배열이 작을 경우에는 대부분 삽입 정렬에 밀린다. 따라서 고성능 알고리즘들 중에서는 배열의 사이즈가 클때는 \mathcal{O}(n\log n)O(nlogn) 알고리즘을 쓰다가 정렬해야 할 부분이 작을때 는 삽입 정렬로 전환하는 것들도 있다.
-        
-        또 굳이 장점을 뽑자면 구현이 매우 쉽다는 것. 그 예로 C/C++에서 기본적인 삽입 정렬을 구현하는데는 서너줄의 코드면 충분하다.
-        
-        
-        파생형으로 이진 삽입 정렬(Binary insertionSort)이 있다. 이진 탐색을 활용해 새로운 원소가 위치할 곳을 미리 찾아서 정렬하는 방식이다. 원소크기를 비교하는 조건 부분을 \log{n}logn 수준으로 낮춰 조금은 더 빠르게 수행할 수 있다는 점 정도.
-    </p>
-    
-    <video id="video" preload="auto" autoplay="true" loop="loop" muted="muted" volume="0">
-        <source src="insertion.mp4">
-    </video>
-    <h3><a href="tag.html">뒤로가기</a></h3>
+    <h1 style="color:#3863a0;; text-align-last: center; margin-top: 30px; margin-right: 20px;">Insertion Sort</h1>
+   
+    <h3 style="color: #3863a0; margin-left: 30px; font-family:arial; position: absolute; top:21%; left:0%;">ALGORITHM</h3>
+    <span class="sorting_algorithms_content" style="font-size: 15px; position: absolute; top:29%; left:2%; ">
+        for i = 2:n,<br>
+        &nbsp;  &nbsp; for (k = i; k > 1 and a[k] < a[k-1]; k--)<br>
+        &nbsp;  &nbsp; &nbsp;  &nbsp;  swap a[k,k-1]<br>
+        &nbsp;  &nbsp;  &nbsp;  &nbsp; → invariant: a[1..i] is sorted<br>
+    end<br>
+    </span>
+    <canvas id="myCanvas" width="460" height="200"></canvas>
+    <h3 style="color: #3863a0; margin-left: 30px; font-family:arial; position:absolute; top:21%; left:69.5%;">DISCUSSION</h3>
+    <span class="sorting_algorithms_content" style="font-size: 15px;  position:absolute; top:29%; left:71.5%; width: 376px;">
+        Although it is one of the elementary sorting algorithms with O(n2) worst-case time, insertion sort is the algorithm of choice either when the data is nearly sorted (because it is adaptive) or when the problem size is small (because it has low overhead).
 
+        For these reasons, and because it is also stable, insertion sort is often used as the recursive base case (when the problem size is small) for higher overhead divide-and-conquer sorting algorithms, such as merge sort or quick sort.
+    </span>
+
+    <h3 style="color: #3863a0; margin-left: 30px; font-family:arial; position:absolute; top:65%; left:69.5%;">PROPERTIES</h3>
+    <span class="sorting_algorithms_content" style="font-size: 15px;  position:absolute; top:72%; left:71.5%">
+        • Stable<br>
+        • O(1) extra space<br>
+        • O(n2) comparisons and swaps<br>
+        • Adaptive: O(n) time when nearly sorted<br>
+        • Very low overhead<br>
+    </span>
+<!-- 오픈 -->
+    <div class="file_input_div">
+        <div class="button-1">
+            <a href="#" style="color: #3863a0;"> <b>Open</b></a>
+        	<input type="file" name="file_1" id="selectFile" class="file_input_hidden" accept="text/plain" id="selectFile" onclick="textFile()" />
+        </div>
+    </div>	
+<!-- 텍스트창 -->
+    <input style="top:70.5%; left:48.3%; border-radius: 4px;" type="text" id="fileName" class="file_input_textbox" readonly >
+<!--이용방법  -->
+<div class="button-1" style="top:71%; left: 34.3%;" onclick="alert('1)\n\'\'\'.txt파일에 숫자 공백 순으로 작성 ex) 1 5 2 4 3 \nOpen -> Sorting -> Save\n\n2)\nRandom, Nearly Sorted, Reversed중 택1 -> sorting -> save')">
+        <a href="#" style="color: #3863a0;"> <b>How to use</b></a>
+    </div>
+<!-- 정렬 -->
+    <div class="button-1" style="top:78%; left: 53%;" onclick="sortStart()">
+        <div class="eff-1"></div>
+        <a href="#" style="color: #3863a0;"> <b>Sorting</b></a>
+    </div>
+<!--저장  -->
+    <div class="button-1" style="top:78%; left: 60%;" onclick="saveToFile_Chrome('result.txt', array)">
+        <div class="eff-1"></div>
+        <a href="#" style="color: #3863a0;" ><b>Save</b></a>
+    </div>
+
+<!--랜덤숫자  -->
+    <div class="button-1" style="top:78%; left: 29.3%;" onclick="randomArray()">
+        <div class="eff-1"></div>
+        <a href="#" style="color: #3863a0;"> <b>Random</b></a>
+    </div>
+
+    <div class="button-1" style="top:78%; left: 36.3%; width: 140px;" onclick="nearlySortedArray()">
+        <div class="eff-1"></div>
+        <a href="#" style="color: #3863a0;"> <b>Nearly Sorted</b></a>
+    </div>
     
-</body>
+    <div class="button-1" style="top:78%; left: 46%;" onclick="reverseArray()">
+        <div class="eff-1"></div>
+        <a href="#" style="color: #3863a0;" ><b>Reversed</b></a>
+    </div>
+
+    <h5 style="color: #3863a0; margin-left: 30px; font-family:arial; position:absolute; top:88.5%; left:27%; ">ALGORITHM: </h5>
+    <div class="h-container" style="position: absolute; top: 94.5%; left: 29%;">
+        <strong><a class="nexth" href="Bubble.html">Bubble</a></strong>
+        <strong><a class="nexth" href="Selection.html">Selection</a></strong>
+        <strong><a class="nexth" href="Insertion.html">Insertion</a></strong>
+        <strong><a class="nexth" href="Merge.html">Merge</a></strong>
+        <strong><a class="nexth" href="Heap.html">Heap</a></strong>
+        <strong><a class="nexth" href="Quick.html">Quick</a></strong>
+        <strong><a class="nexth" href="Count.html">Count</a></strong>
+        <strong><a class="nexth" href="Radix.html">Radix</a></strong>
+    </div>
+
+    <script>  
+        var array=[];
+
+        function randomArray() {
+            array=[];
+            for(let i=0; i<100; i++) {
+                var random = Math.floor(Math.random() * 101);
+                array.push(random);
+            }
+            draw(array); 
+        }
+        function nearlySortedArray() {
+            array=[];
+            let tmpArray=[];
+            for(let i=0; i<100; i++) {
+                array[i] = i;
+            }
+            let tmp=array[3]; array[3]=array[6]; array[6]=tmp;
+            tmp=array[7]; array[7]=array[15]; array[15]=tmp;
+            tmp=array[12]; array[12]=array[17]; array[17]=tmp;
+            tmp=array[57]; array[57]=array[43]; array[43]=tmp;
+            tmp=array[26]; array[26]=array[38]; array[38]=tmp;
+            tmp=array[93]; array[93]=array[76]; array[76]=tmp;
+            tmp=array[78]; array[78]=array[64]; array[64]=tmp;
+            tmp=array[49]; array[49]=array[66]; array[66]=tmp;
+            tmp=array[34]; array[34]=array[57]; array[57]=tmp;
+            tmp=array[87]; array[87]=array[99]; array[99]=tmp;
+            draw(array); 
+        }
+        function reverseArray() {
+            array=[];
+            for(let i=0; i<100; i++) {
+                array.push(100-i);
+            }
+            draw(array); 
+        }
+
+        function textFile(fileName) {
+            document.getElementById('selectFile').onchange = function(e) {
+                var file = e.target.files[0];
+                document.getElementById('fileName').value = file.name;
+                //파일 읽기
+                var reader = new FileReader();
+                reader.readAsText(file);
+                //파일 읽기 성공시
+                reader.onload = function(e) {
+                    var textData = reader.result;
+                    array = textData.split(" ");  // array배열에 공백 기준으로 삽입
+                   
+                    //정수형으로 변환
+                    for(var i=0; i<array.length; i++) {
+                        array[i] = Number(array[i]);
+                    }
+                    draw(array);
+                }
+            }
+        }
+
+        function saveToFile_Chrome(fileName, content) {
+            var blob = new Blob([content], { type: 'text/plain' });
+            objURL = window.URL.createObjectURL(blob);
+                    
+            // 이전에 생성된 메모리 해제
+            if (window.__Xr_objURL_forCreatingFile__) {
+                window.URL.revokeObjectURL(window.__Xr_objURL_forCreatingFile__);
+            }
+            window.__Xr_objURL_forCreatingFile__ = objURL;
+            var a = document.createElement('a');
+            a.download = fileName;
+            a.href = objURL;
+            a.click();
+        }
+
+        // canvas
+        var CANVAS_WIDTH = window.innerWidth;
+        var CANVAS_HEIGHT = window.innerHeight;
+
+        var canvas = document.querySelector('canvas')
+        var context = canvas.getContext('2d');
+
+        canvas.width = CANVAS_WIDTH;
+        canvas.height = CANVAS_HEIGHT;
+            
+        var _canvas = document.querySelector("#myCanvas");
+        _canvas.width = 640;
+        _canvas.height = 300;
+
+        function draw(array){
+                context.save();
+                context.clearRect(0, 0, canvas.width, canvas.height);
+                context.strokeStyle = 'white';
+                context.beginPath();
+                context.moveTo(0, canvas.height-100);
+                context.lineTo(canvas.width, canvas.height-100);
+                context.stroke();
+                context.restore();
+                context.fillStyle = 'black';
+                for(let i = 0; i < array.length; i++){
+                    context.fillRect(20+6*i,canvas.height-1, 5, -2.7 * array[i]);
+                }
+        }
+
+        function sortStart() {      
+            function insertionSort(arr, n){
+                if(n===0) {return arr;}
+                for(let j=n; j>0; j--){
+                    if(arr[n] < arr[j-1]){
+                        var tmp = arr[j-1];
+                        arr[j-1] = arr[n];
+                        arr[n] = tmp;
+                        draw(arr);
+                    }
+                }
+                setTimeout(function() {
+                    return insertionSort(arr, n-1);
+                },40);
+            }
+            insertionSort(array, 100);
+        }
+
+    </script>
+    <br><br><br><br><br>
+    <h3><a style="font-size: 18px; color: #0d0a33; position: absolute; top: 11%; margin-left:10px;" href="home.html"> Home </a></h3>
+</body=>

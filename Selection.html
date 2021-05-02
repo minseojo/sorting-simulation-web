@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Bubble-Sort</title>
+    <title>Selction-Sort</title>
     <meta charset="UTF-8">
     <link rel="stylesheet" href ="style.css">
     <style>
@@ -190,42 +190,85 @@ font-size: 12px;}
         _canvas.width = 640;
         _canvas.height = 300;
 
-        function draw(array){
-                context.save();
-                context.clearRect(0, 0, canvas.width, canvas.height);
-                context.strokeStyle = 'white';
-                context.beginPath();
-                context.moveTo(0, canvas.height-100);
-                context.lineTo(canvas.width, canvas.height-100);
-                context.stroke();
-                context.restore();
-                context.fillStyle = 'black';
-                for(let i = 0; i < array.length; i++){
+        function draw(array, a, b){
+            context.save();
+            context.clearRect(0, 0, canvas.width, canvas.height);
+            context.strokeStyle = 'white';
+            context.beginPath();
+            context.moveTo(0, canvas.height-100);
+            context.lineTo(canvas.width, canvas.height-100);
+            context.stroke();
+            context.restore();
+            context.fillStyle = 'black';
+            for(let i=0; i < array.length; i++){
+                if(i==b) {
+                    context.fillStyle = '#4875b4';
                     context.fillRect(20+6*i,canvas.height-1, 5, -2.7 * array[i]);
                 }
+                else {
+                    context.fillRect(20+6*i,canvas.height-1, 5, -2.7 * array[i]);
+                }                                
+            }
         }
+        var audio1 = new Audio('button-14.mp3');
+        var audio2 = new Audio('button-18.mp3');
+        var audio3 = new Audio('button-3.mp3');
+        var audioArray = [];
 
+        
         function sortStart() {
+            for(let i=0; i<array.length; i++) {
+                audioArray[i] = array[i];
+            }
             function selectSort(arr, n) {
+                draw(array,0, n);
                 var maxValue=0, index;
-                if(n === 0) {return arr;}
+                if(n === 0) return arr;
                 for (let i = 0; i <= n; i++) { 
                     if(maxValue < arr[i]){
                             index = i;
                         maxValue = arr[i];
                     }
                 }
+                if(maxValue>=0 && maxValue<=33) audio1.play();
+                else if(maxValue>33 && maxValue<=66) audio2.play();
+                else audio3.play();
+                
                 arr[index] = arr[n];
                 arr[n] = maxValue;
-                draw(array);
                 setTimeout(function() {
-                        return selectSort(arr, n-1);
-                },50);
+                    if(audioArray[n]>67)audio1.play();
+                    else if(audioArray[n]>33)audio2.play();
+                    else audio3.play();
+                    return selectSort(arr, n-1);
+                },100);
             }
-            selectSort(array, 100);
+            selectSort(array, array.length);       
         }
-
+            /*
+            function selectSort(arr) {
+                for(let i=0; i<arr.length; i++) {
+                    let minIndex=i;
+                    (function(x) {
+                    setTimeout(function() {             
+                        for(let j=i+1; j<arr.length; j++) {
+                            if(arr[minIndex] > arr[j]){
+                                minIndex=j;
+                            }
+                        }
+                        if(minIndex!==i) {
+                            let tmp = arr[minIndex];
+                            arr[minIndex] = arr[i];
+                            arr[i] = tmp;
+                        }
+                        draw(arr, 1, minIndex);
+                        if(i==arr.length-1) draw(arr,0,0);
+                        },40*x);
+                    })(i);
+                }
+            }
+            selectSort(array);
+        */
     </script>
-    <br><br><br><br><br>
-    <h3><a style="font-size: 18px; color: #0d0a33; position: absolute; top: 11%; margin-left:10px;" href="home.html"> Home </a></h3>
+    <h3><a style="font-size: 20px; color: #0d0a33; position: absolute; top: 2.5%; margin-left:10px;" href="home.html"> Home </a></h3>
 </body=>

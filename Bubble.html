@@ -21,6 +21,7 @@ font-size: 12px;}
 </head>
 <body style="background-color: white;">
 
+    <audio src="button-16.mp3" id="audio1"></audio>
     <div style="border-bottom: 1px solid rgb(114, 110, 110); width: 95%; padding: 30px;"> </div>
 
     <h1 style="color:#3863a0;; text-align-last: center; margin-top: 30px; margin-right: 20px;">Bubble Sort</h1>
@@ -189,7 +190,7 @@ font-size: 12px;}
         _canvas.width = 640;
         _canvas.height = 300;
 
-        function draw(array){
+        function draw(array, b){
                 context.save();
                 context.clearRect(0, 0, canvas.width, canvas.height);
                 context.strokeStyle = 'white';
@@ -199,30 +200,76 @@ font-size: 12px;}
                 context.stroke();
                 context.restore();
                 context.fillStyle = 'black';
-                for(let i = 0; i < array.length; i++){
-                    context.fillRect(20+6*i,canvas.height-1, 5, -2.7 * array[i]);
-                }
+                for(let i=0; i < array.length; i++){
+                    
+                    if(i==b) {
+                        context.fillStyle = '#4875b4';
+                        context.fillRect(20+6*i,canvas.height-1, 5, -2.7 * array[i]);
+                    }
+                    else  {
+                        context.fillRect(20+6*i,canvas.height-1, 5, -2.7 * array[i]);
+                    }                
+                }/*
+                //이미 정렬되있는경우 마지막에 모두 정렬체크
+                if(a==0 && b==0) {
+                    for(let i=0; j<array.length; j++) {
+                        context.fillStyle = 'red';
+                        context.fillRect(20+6*i,canvas.height-1, 5, -2.7 * array[i]);
+                    }
+                }*/
         }
 
+        var audio1 = new Audio('button-14.mp3');
+        var audio2 = new Audio('button-18.mp3');
+        var audio3 = new Audio('button-3.mp3');
+        var audioArray = [];
+
+        
         function sortStart() {
+            for(let i=0; i<array.length; i++) {
+                audioArray[i] = array[i];
+            }
             function bubbleSort(arr, n) {
+                draw(arr, n);
+                let setAudio=[];
                 if(n === 0) {return arr;}
-                for (let i = 0; i < arr.length; i++) { 
-                    if(arr[i] > arr [i+1]){
+                for (let i=0; i<arr.length; i++) { 
+                    if(arr[i] > arr[i+1]){
+                        setAudio.push(i);
                         let temp = arr[i];
                         arr[i] = arr[i+1];    
-                        arr[i+1] = temp;   
-                        draw(array);
+                        arr[i+1] = temp;
                     }
-                }  
+                }
                 setTimeout(function() {
+                    if(audioArray[n]>67)audio1.play();
+                    else if(audioArray[n]>33)audio2.play();
+                    else audio3.play();
                     return bubbleSort(arr, n-1);
-                },70);
-            } 
-            bubbleSort(array, 100);
+                },100);
+            }
+            bubbleSort(array, array.length);
+            /*
+            function bubbleSort(arr) {
+                for(let i=0; i<arr.length; i++) {
+                    (function(x) {
+                    setTimeout(function() {
+                        for(let j=0; j<array.length; j++) {
+                            if(arr[j]>arr[j+1]) {
+                                let tmp=arr[j];
+                                arr[j]=arr[j+1];
+                                arr[j+1]=tmp;
+                                draw(arr, j, j+1);
+                            }
+                        }
+                        if(i==arr.length-1) draw(arr,0,0);
+                    },70*x);
+                    })(i);                    
+                }
+            }
+            bubbleSort(array);*/
         }
 
     </script>
-    <br><br><br><br><br>
-    <h3><a style="font-size: 18px; color: #0d0a33; position: absolute; top: 11%; margin-left:10px;" href="home.html"> Home </a></h3>
+    <h3><a style="font-size: 20px; color: #0d0a33; position: absolute; top: 2.5%; margin-left:10px;" href="home.html"> Home </a></h3>
 </body=>

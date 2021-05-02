@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Bubble-Sort</title>
+    <title>Quick-Sort</title>
     <meta charset="UTF-8">
     <link rel="stylesheet" href ="style.css">
     <style>
@@ -21,7 +21,7 @@ font-size: 12px;}
 </head>
 <body style="background-color: white;">
 
-    <div style="border-bottom: 1px solid rgb(114, 110, 110); width: 95%; padding: 28px; margin-left: 0.5%;"> </div>
+    <div style="border-bottom: 1px solid rgb(114, 110, 110); width: 95%; padding: 30px; margin-left: 0.5%;"> </div>
 
     <h1 style="color:#3863a0;; text-align-last: center; margin-top: 30px; margin-right: 20px;">Quick Sort</h1>
    
@@ -41,7 +41,6 @@ font-size: 12px;}
         sort a[k+1,n]<br>
         end
     </span>
-    <canvas id="myCanvas" width="460" height="200"></canvas>
     <h3 style="color: #3863a0; margin-left: 30px; font-family:arial; position:absolute; top:16%; left:69.5%;">DISCUSSION</h3>
     <span class="sorting_algorithms_content" style="font-size: 15px; position:absolute; top:23%; left:71.5%; width: 350px;">
         The 2-way partitioning code shown above is written for clarity rather 
@@ -53,7 +52,7 @@ font-size: 12px;}
          yielding probabilistic guarantees of O(n·lg(n)) time and O(lg(n)) space 
          for all inputs.
     </span>
-
+    <canvas id="myCanvas" width="460" height="200"></canvas>
     <h3 style="color: #3863a0; margin-left: 30px; font-family:arial; position:absolute; top:65%; left:69.5%;">PROPERTIES</h3>
     <span class="sorting_algorithms_content" style="font-size: 15px; position:absolute; top:72%; left:71.5%">
         • Not stable<br>
@@ -200,40 +199,109 @@ font-size: 12px;}
         _canvas.width = 640;
         _canvas.height = 300;
 
-        function draw(array){
-                context.save();
-                context.clearRect(0, 0, canvas.width, canvas.height);
-                context.strokeStyle = 'white';
-                context.beginPath();
-                context.moveTo(0, canvas.height-100);
-                context.lineTo(canvas.width, canvas.height-100);
-                context.stroke();
-                context.restore();
-                context.fillStyle = 'black';
-                for(let i = 0; i < array.length; i++){
+        function draw(array, a,b){
+            context.save();
+            context.clearRect(0, 0, canvas.width, canvas.height);
+            context.strokeStyle = 'white';
+            context.beginPath();
+            context.moveTo(0, canvas.height-100);
+            context.lineTo(canvas.width, canvas.height-100);
+            context.stroke();
+            context.restore();
+            context.fillStyle = 'black';
+            for(let i=0; i < array.length; i++){
+                if(i==a) {
+                    context.fillStyle = '#4875b4';
                     context.fillRect(20+6*i,canvas.height-1, 5, -2.7 * array[i]);
                 }
+                else  {
+                    context.fillRect(20+6*i,canvas.height-1, 5, -2.7 * array[i]);
+                }         
+            }
+            if(a==0 && b==0) {
+                for(let i=0; j<array.length; j++) {
+                    context.fillStyle = 'red';
+                    context.fillRect(20+6*i,canvas.height-1, 5, -2.7 * array[i]);
+                }
+            }   
         }
 
+        var audio1 = new Audio('button-14.mp3');
+        var audio2 = new Audio('button-18.mp3');
+        var audio3 = new Audio('button-3.mp3');
+        var audioArray = [];
+
+        
         function sortStart() {
-            function bubbleSort(arr, n) {
-                if(n === 0) {return arr;}
-                for (let i = 0; i < arr.length; i++) { 
-                    if(arr[i] > arr [i+1]){
-                        let temp = arr[i];
-                        arr[i] = arr[i+1];    
-                        arr[i+1] = temp;   
+            for(let i=0; i<array.length; i++) {
+                audioArray[i] = array[i];
+            }
+            quickSort(array); 
+            /*
+            원래는 아래에 있는 quickSort2가 맞으나 시각화하기 위해서 포문을 이용 i는 n~0으로 하향식 이동 i를 피벗으로 두고 하나씩 지정 
+            => 마치 삽입과정과 비슷해 보이나 다르다.
+            */
+            function quickSort(arr) {
+                for(let i=arr.length-1; i>0; i--) {
+                    (function(x) {
+                    setTimeout(function() {    
+                        if(i/2==1 || i/4==1||i/8==1||i/16==1||i/32==1||i/64==1||i/99==1) audio3.play();                                         
+                    for(let j=i-1; j>=0; j--) {
+                        divide(arr, j, Math.min(arr.length-j-1, array.length-1),arr.length-i);
                     }
+                    draw(arr, arr.length- i);
+                    if(i==2) draw(arr, 0,0);                   
+                    }, 50*x); // 기준원소를/2씩 하는게 아니라 1씩 감소하므로 다른거보다 속도를 올림
+                })(i);
                 }
-                draw(array);    
-                setTimeout(function() {
-                    return bubbleSort(arr, n-1);
-                },70);
             } 
-            bubbleSort(array, 100);
+
+            /* 원래 시각화용이 아니라면 맞는 퀵정렬
+            function quickSort2 (array, left = 0, right = array.length - 1) {
+                if (left >= right) {
+                    return;
+                }
+                setTimeout( function() {           
+                    const mid = Math.floor((left + right) / 2);
+                    const pivot = array[mid];
+                    const partition = divide(array, left, right, pivot); 
+                    quickSort(array, left, partition - 1);
+                    quickSort(array, partition, right);
+                },500);
+                return array;
+            }*/
+           /*
+           function quickSort(arr) {
+                for(let i=1; i<arr.length; i++) {
+                    (function(x) {
+                    setTimeout(function() {
+                    for(let j=0; j<arr.length-i-1; j+=i+i) {
+                        divide(arr, j, Math.min(arr.length-j-1, array.length-1), arr.length-i-1);
+                        draw(arr, arr.length- i);
+                    }
+                    }, 50*x);
+                })(i);
+                }
+            }*/
+            function divide (array, left, right, pivot) {        
+                while (left <= right) {
+                    while (array[left] < pivot) {
+                        left++;
+                    }
+                    while (array[right] > pivot) {
+                        right--;
+                    } 
+                    if (left <= right) {
+                        let tmp = array[left];
+                        array[left] = array[right];
+                        array[right] = tmp;
+                        left++;
+                        right--;
+                    }          
+                }
+            }
         }
 
     </script>
-    <br><br><br><br><br>
-    <h3><a style="font-size: 20px; color: #0d0a33; position: absolute; top: 2.5%; margin-left:10px;" href="home.html"> Home </a></h3>
+     <h3><a style="font-size: 20px; color: #0d0a33; position: absolute; top: 2.5%; margin-left:10px;" href="home.html"> Home </a></h3>
 </body=>

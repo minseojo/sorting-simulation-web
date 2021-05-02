@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Bubble-Sort</title>
+    <title>Insertion-Sort</title>
     <meta charset="UTF-8">
     <link rel="stylesheet" href ="style.css">
     <style>
@@ -188,7 +188,7 @@ font-size: 12px;}
         _canvas.width = 640;
         _canvas.height = 300;
 
-        function draw(array){
+        function draw(array, b){
                 context.save();
                 context.clearRect(0, 0, canvas.width, canvas.height);
                 context.strokeStyle = 'white';
@@ -198,30 +198,65 @@ font-size: 12px;}
                 context.stroke();
                 context.restore();
                 context.fillStyle = 'black';
-                for(let i = 0; i < array.length; i++){
+                for(let i=0; i < array.length; i++){
+                if(i==b) {
+                    context.fillStyle = '#4875b4';
                     context.fillRect(20+6*i,canvas.height-1, 5, -2.7 * array[i]);
                 }
+                else {
+                    context.fillRect(20+6*i,canvas.height-1, 5, -2.7 * array[i]);
+                }                                
+            }
         }
+        var audio1 = new Audio('button-14.mp3');
+        var audio2 = new Audio('button-18.mp3');
+        var audio3 = new Audio('button-3.mp3');
+        var audioArray = [];
 
-        function sortStart() {      
+        
+        function sortStart() {
+            for(let i=0; i<array.length; i++) {
+                audioArray[i] = array[i];
+            }
             function insertionSort(arr, n){
+                draw(arr, n);
                 if(n===0) {return arr;}
                 for(let j=n; j>0; j--){
                     if(arr[n] < arr[j-1]){
                         var tmp = arr[j-1];
                         arr[j-1] = arr[n];
                         arr[n] = tmp;
-                        draw(arr);
                     }
                 }
                 setTimeout(function() {
+                    if(audioArray[n]>67)audio1.play();
+                    else if(audioArray[n]>33)audio2.play();
+                    else audio3.play();
                     return insertionSort(arr, n-1);
-                },40);
+                },100);
             }
-            insertionSort(array, 100);
+            insertionSort(array, array.length);
+            /*
+            function insertionSort(arr) {
+                for(let i=1; i<array.length; i++) {
+                    let cur=arr[i];
+                    let left=i-1;
+                    (function(x) {
+                        setTimeout(function() {             
+                            while (left >= 0 && array[left] > cur) {
+                                array[left + 1] = array[left];
+                                left--;
+                            }
+                            array[left + 1] = cur;
+                            draw(arr);
+                        },70*x);
+                    })(i);
+                }
+            } 
+            insertionSort(array);
+            */
         }
 
     </script>
-    <br><br><br><br><br>
-    <h3><a style="font-size: 18px; color: #0d0a33; position: absolute; top: 11%; margin-left:10px;" href="home.html"> Home </a></h3>
+      <h3><a style="font-size: 20px; color: #0d0a33; position: absolute; top: 2.5%; margin-left:10px;" href="home.html"> Home </a></h3>
 </body=>

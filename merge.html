@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Bubble-Sort</title>
+    <title>Merge-Sort</title>
     <meta charset="UTF-8">
     <link rel="stylesheet" href ="style.css">
     <style>
@@ -23,7 +23,7 @@ font-size: 12px;}
 
     <div style="border-bottom: 1px solid rgb(114, 110, 110); width: 95%; padding: 30px;"> </div>
 
-    <h1 style="color:#3863a0;; text-align-last: center; margin-top: 30px; margin-right: 20px;">Merge Sort</h1>
+    <h1 style="color:#3863a0;; text-align-last: center; margin-top: 28px; margin-right: 20px;">Merge Sort</h1>
    
     <h3 style="color: #3863a0; margin-left: 30px; font-family:arial; position: absolute; top:16%; left:0%;">ALGORITHM</h3>
     <span class="sorting_algorithms_content" style="font-size: 15px; position: absolute; top:23%; left:2%; ">
@@ -199,7 +199,7 @@ font-size: 12px;}
         _canvas.width = 640;
         _canvas.height = 300;
 
-        function draw(array){
+        function draw(array, a, b,c){
             context.save();
             context.clearRect(0, 0, canvas.width, canvas.height);
             context.strokeStyle = 'white';
@@ -209,38 +209,97 @@ font-size: 12px;}
             context.stroke();
             context.restore();
             context.fillStyle = 'black';
-            for(let i = 0; i < array.length; i++){
-                context.fillRect(20+6*i,canvas.height-1, 5, -2.7 * array[i]);
+            for(let i=0; i < array.length; i++){
+                if(i==a || i==b || i==c) {
+                    context.fillStyle = '#4875b4';
+                    context.fillRect(20+6*i,canvas.height-1, 5, -2.7 * array[i]);
+                }
+                else {
+                    context.fillRect(20+6*i,canvas.height-1, 5, -2.7 * array[i]);
+                }                                
             }
         }
 
 
+        var left=[], right=[], result=[];
+        var audio1 = new Audio('button-14.mp3');
+        var audio2 = new Audio('button-18.mp3');
+        var audio3 = new Audio('button-3.mp3');
+        
         function sortStart() {
-            function mergeSort(array, n) {
-                if (n <1) return array;
-                middleIndex = Math.floor(n / 2); 
-                left = array.slice(0, middleIndex);
-                right = array.slice(middleIndex);
-                setTimeout(function() {
-                    return merge(mergeSort(left, left.length), mergeSort(right, right.length));
-                },50);
-            }
 
-            function merge(left, right) {
-                result = [];
-                while (left.length !== 0 && right.length !== 0) {
-                    left[0] <= right[0] ? result.push(left.shift()) : result.push(right.shift());	
-                    draw(result);
+            mergeSort(array);
+
+            function mergeSort(arr) {
+                for(let i=1; i<array.length; i+=i) {
+                    (function(x) {
+                    setTimeout(function() {
+                        audio3.play();
+                    for(let j=0; j<array.length-i; j+=i+i) {
+                            merge(arr, j, j+i-1, Math.min(j + i + i - 1, array.length - 1));
+                            draw(arr, j, j+i-1, Math.min(j + i + i - 1, array.length - 1));
+                        }
+                    }, 100*x);
+                })(i);
                 }
+            }           
 
-
-
-                return [...result, ...left, ...right];
+            function merge(arr, start, mid, end) {
+                //  arr[lo..hi]를 arrux[lo..hi]에 복제
+                for (let k = start; k <= end; k++) {
+                    result[k] = arr[k];
+                }
+                let i = start;       // sub 배열 1 인덱스
+                let j = mid+1;  // sub 배열 2 인덱스
+                // 다시 a[start..end]로 병합
+                for (let k = start; k <= end; k++) {
+                    if (i > mid) {
+                        // sub 배열 1 인덱스가 마지막까지 갔다면 sub 배열 2의 값을 선택해 넣는다
+                        arr[k] = result[j++];
+                    } else if (j > end) {
+                           // sub 배열 2 인덱스가 마지막까지 갔다면 sub 배열 1의 값을 선택해 넣는다
+                        arr[k] = result[i++];
+                    } else if (result[j] < result[i]) {
+                        // 두 sub 배열 헤드 중 작은 값을 선택해 넣는다
+                        arr[k] = result[j++];
+                    } else {
+                        // 두 sub 배열 헤드 중 작은 값을 선택해 넣는다
+                        arr[k] = result[i++];
+                    }
+                }
             }
 
-            mergeSort(array, 100);
+                /*
+                left=[], right=[], result=[];
+                let cnt=0, cnt1=0,cnt2=0,sa=0,sb=0;
+                let middle=Math.floor(start+(end-start)/2);
+                for(let i=start; i<middle; i++) {
+                    left[cnt1]=arr[i];  cnt1++;
+                }
+                for(let i=middle; i<end; i++) {
+                    right[cnt2]=arr[i]; cnt2++;
+                }
+                while(sa<cnt1 && sb<cnt2) {
+                    if(left[sa]<=right[sb]) {
+                        result[cnt] = left[sa]; sa++;
+                    } else {result[cnt] = right[sb]; sb++;}
+                    cnt++;
+                }
+                //나머지들
+                while (sa < cnt1) {
+                    result[cnt]=left[sa]; sa++; cnt++;
+                } while (sb < cnt2) {
+                    result[cnt]=right[sb]; sb++; cnt++;
+                }
+                cnt=0;
+                for(let i=start; i<end; i++) {
+                    arr[i] = result[cnt]; cnt++;
+                }
+                draw(result);
+                return arr; 
+            }*/
         }
     </script>
-    <br><br><br><br><br>
-    <h3><a style="font-size: 18px; color: #0d0a33; position: absolute; top: 11%; margin-left:10px;" href="home.html"> Home </a></h3>
+
+    <h3><a style="font-size: 20px; color: #0d0a33; position: absolute; top: 2.5%; margin-left:10px;" href="home.html"> Home </a></h3>
 </body=>

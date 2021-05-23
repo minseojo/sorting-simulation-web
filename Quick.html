@@ -206,7 +206,7 @@ font-size: 12px;}
         _canvas.height = 300;
 
         var flag2=0;
-        function draw(array, a,b){
+        function draw(array, a, b){
             context.save();
             context.clearRect(0, 0, canvas.width, canvas.height);
             context.strokeStyle = 'white';
@@ -223,14 +223,10 @@ font-size: 12px;}
                 }
                 else  {
                     context.fillRect(20+6*i,canvas.height-1, 5, -2.7 * array[i]);
-                }         
-            }
-            if(a==0 && b==0) {
-                for(let i=0; j<array.length; j++) {
-                    context.fillStyle = 'red';
-                    context.fillRect(20+6*i,canvas.height-1, 5, -2.7 * array[i]);
                 }
+
             }
+
         }
 
         var audio1 = new Audio('button-14.mp3');
@@ -242,6 +238,7 @@ font-size: 12px;}
         function sortStart() {
             var falg2=0;
             count=0;
+            var cnt=0;
             for(let i=0; i<array.length; i++) {
                 audioArray[i] = array[i];
             }
@@ -252,20 +249,21 @@ font-size: 12px;}
             */
             function quickSort(arr) {
                 for(let i=arr.length; i>0; i--) {
-                    if(i==1) flag2=1; 
                     (function(x) {
-                    setTimeout(function() {    
+                    setTimeout(function() {  
+                        cnt++;
+                        if(cnt==array.length-1) flag2=1;  
                         if(i/2==1 || i/4==1||i/8==1||i/16==1||i/32==1||i/64==1||i/99==1) audio3.play();                                         
                     for(let j=i-1; j>=0; j--) {
                         divide(arr, j, Math.min(arr.length-j-1, array.length-1),arr.length-i+1);
                     }
                     draw(arr, arr.length- i);
-                    if(i==2) draw(arr, 0,0);                   
+                    if(i==1) draw(arr, 0,0);                   
                     }, 65*x); // 기준원소를/2씩 하는게 아니라 1씩 감소하므로 다른거보다 속도를 올림
                 })(i);
                 }
             } 
-
+            
             /* 원래 시각화용이 아니라면 맞는 퀵정렬
             function quickSort2 (array, left = 0, right = array.length - 1) {
                 if (left >= right) {
@@ -311,7 +309,7 @@ font-size: 12px;}
                 }
             }
         }
-        var count = 0;
+    var count = 0;
     var time = 0;
 
     function noodle() {
@@ -319,18 +317,18 @@ font-size: 12px;}
         value=0;
         // 타이머 함수 1초씩 호출하는 함수 만들기
         time = setInterval("myTimer()", 1000);
-
     }
 
     function myTimer() {
         count = count + 1; // 타이머 선택 숫자에서 -1씩 감산함(갱신되기 때문)
-        document.getElementById("countdown").innerHTML = "정렬중 <b>" + count + "</b>초.";
+        document.getElementById("countdown").innerHTML = "정렬 중 <b>" + count + "</b>초.";
         if (count>1) {
             var flag =0;
             for(var i=0; i<array.length; i++) {
                 if(array[i]>array[i+1]) flag=1;
             }
             if(flag==0 && flag2==1) {
+                document.getElementById("countdown").innerHTML = "정렬 완료 <b>" + count + "</b>초.";
             clearInterval(time); // 시간 초기화
             }
         }

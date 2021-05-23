@@ -65,7 +65,7 @@ font-size: 12px;}
         <a href="#" style="color: #3863a0;"> <b>How to use</b></a>
     </div>
 <!-- 정렬 -->
-    <div class="button-1" style="top:78%; left: 53%;" onclick="sortStart()">
+    <div class="button-1" style="top:78%; left: 53%;" onclick="sortStart(); noodle();" >
         <div class="eff-1"></div>
         <a href="#" style="color: #3863a0;"> <b>Sorting</b></a>
     </div>
@@ -103,7 +103,15 @@ font-size: 12px;}
         <strong><a class="nexth" href="Radix.html">Radix</a></strong>
     </div>
 
-    <script>  
+
+    <div align="center" style="color: #3863a0; position:absolute; top:25%; left:27.5%; ">
+  
+        <span id="countdown"><strong>timer</strong></span>
+        <br><br>
+  
+    </div>
+    
+    <script type="text/javascript">
         var array=[];
 
         function randomArray() {
@@ -190,6 +198,7 @@ font-size: 12px;}
         _canvas.width = 640;
         _canvas.height = 300;
 
+        var flag2=0;
         function draw(array, b){
                 context.save();
                 context.clearRect(0, 0, canvas.width, canvas.height);
@@ -209,7 +218,9 @@ font-size: 12px;}
                     else  {
                         context.fillRect(20+6*i,canvas.height-1, 5, -2.7 * array[i]);
                     }                
-                }/*
+                }
+                if(b==0) flag2=1;
+                /*
                 //이미 정렬되있는경우 마지막에 모두 정렬체크
                 if(a==0 && b==0) {
                     for(let i=0; j<array.length; j++) {
@@ -226,6 +237,8 @@ font-size: 12px;}
 
         
         function sortStart() {
+            var flag2=0;
+            count=0;
             for(let i=0; i<array.length; i++) {
                 audioArray[i] = array[i];
             }
@@ -270,6 +283,31 @@ font-size: 12px;}
             bubbleSort(array);*/
         }
 
+    var count = 0;
+    var time = 0;
+
+    function noodle() {
+        clearInterval(time); // 타이머 우선 초기화 시켜주기(time initialize)
+        value=0;
+        // 타이머 함수 1초씩 호출하는 함수 만들기
+        time = setInterval("myTimer()", 1000);
+
+    }
+
+    function myTimer() {
+        count = count + 1; // 타이머 선택 숫자에서 -1씩 감산함(갱신되기 때문)
+        document.getElementById("countdown").innerHTML = "정렬중 <b>" + count + "</b>초.";
+        if (count>1) {
+            var flag =0;
+            for(var i=0; i<array.length; i++) {
+                if(array[i]>array[i+1]) flag=1;
+            }
+            if(flag==0 && flag2==1) {
+            clearInterval(time); // 시간 초기화
+            }
+        }
+    }
     </script>
     <h3><a style="font-size: 20px; color: #0d0a33; position: absolute; top: 2.5%; margin-left:10px;" href="home.html"> Home </a></h3>
+    <h3 style="font-size: 20px; color: #0d0a33; position: absolute; top: 0%; margin-left:85%;">201912430 조민서</h3>
 </body=>
